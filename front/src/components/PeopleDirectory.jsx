@@ -8,8 +8,8 @@ import {
   flexRender,
 } from '@tanstack/react-table';
 import { PencilSquareIcon, TrashIcon, FunnelIcon } from '@heroicons/react/24/outline';
-import PersonalDetails from './PersonalDetails'; // Import the PersonalDetails component
-import EditModal from './EditModal'; // Import the EditModal component
+import PersonalDetails from './PersonalDetails';
+import EditModal from './EditModal';
 import Filter from './Filter'; // Import the Filter component
 import '../styles.css';
 import img from '../assets/images/mypic.jpg';
@@ -25,8 +25,8 @@ const defaultData = [
 function PeopleDirectory() {
   const [data, setData] = useState(defaultData);
   const [selectedMember, setSelectedMember] = useState(null);
-  const [isEditing, setIsEditing] = useState(false); // State to control EditModal visibility
-  const [filterVisible, setFilterVisible] = useState(false); // State to control Filter visibility
+  const [isEditing, setIsEditing] = useState(false);
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
 
   const handleDelete = useCallback((id) => {
     setData((prevData) => prevData.filter((item) => item.id !== id));
@@ -42,11 +42,11 @@ function PeopleDirectory() {
 
   const handleEdit = (member) => {
     setSelectedMember(member);
-    setIsEditing(true); // Show the EditModal
+    setIsEditing(true);
   };
 
   const handleCloseEditModal = () => {
-    setIsEditing(false); // Hide the EditModal
+    setIsEditing(false);
   };
 
   const handleSaveEdit = (editedMember) => {
@@ -55,7 +55,7 @@ function PeopleDirectory() {
         member.id === editedMember.id ? editedMember : member
       )
     );
-    setIsEditing(false); // Close the modal after saving
+    setIsEditing(false);
   };
 
   const columns = useMemo(
@@ -123,8 +123,8 @@ function PeopleDirectory() {
     // Navigate to the add person page
   };
 
-  const toggleFilterVisibility = () => {
-    setFilterVisible((prev) => !prev);
+  const toggleFilter = () => {
+    setIsFilterOpen(!isFilterOpen);
   };
 
   return (
@@ -141,26 +141,34 @@ function PeopleDirectory() {
               className="search-bar search-input"
               onChange={(e) => table.setGlobalFilter(e.target.value)}
             />
-            <button className="filter-button" onClick={toggleFilterVisibility}>
-              <FunnelIcon className="icon-filter" />
-            </button>
+            <div className="relative">
+              <button className="filter-button" onClick={toggleFilter}>
+                <FunnelIcon className="icon-filter" />
+              </button>
+              {isFilterOpen && <Filter />}
+            </div>
           </div>
           <button onClick={handleAddPerson} className="add-person-button">
             Add Member
           </button>
         </div>
       </div>
-      {filterVisible && <Filter />} {/* Conditionally render Filter component */}
       <table className="table">
         <thead>
-          <tr>
-            <th className="table-header">PHOTO</th>
-            <th className="table-header">NAME</th>
-            <th className="table-header">EMAIL</th>
-            <th className="table-header">ROLE</th>
-            <th className="table-header">TEAM</th>
-            <th className="table-header">ACTIONS</th>
-          </tr>
+          {table.getHeaderGroups().map((headerGroup) => (
+            <tr key={headerGroup.id}>
+              {headerGroup.headers.map((header) => (
+                <th key={header.id} className="table-header">
+                  {header.isPlaceholder
+                    ? null
+                    : flexRender(
+                        header.column.columnDef.header,
+                        header.getContext()
+                      )}
+                </th>
+              ))}
+            </tr>
+          ))}
         </thead>
         <tbody>
           {table.getRowModel().rows.map((row) => (
