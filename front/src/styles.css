@@ -1,0 +1,230 @@
+/* Global styles */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Base layer - applies foundational styles */
+body {
+  @apply text-gray-900 antialiased;
+}
+
+/* Specific styling for the people directory */
+.people-directory {
+  @apply container mx-auto px-4 py-8;
+}
+
+.header {
+  @apply flex justify-between items-center mb-4;
+  width: 100%; /* Ensure full width */
+  background-color: #f3f4f6; /* Optional: Add background color if needed */
+  padding: 0.5rem; /* Optional: Adjust padding to your needs */
+  @apply rounded-md shadow-sm; /* Add rounded corners and a subtle shadow */
+}
+
+.search-bar {
+  @apply flex items-center border border-gray-300 rounded-md p-2 w-1/3;
+}
+
+.search-input {
+  @apply flex-grow px-2 text-gray-700;
+}
+
+.table {
+  @apply min-w-full table-auto border-collapse;
+  border-spacing: 0; /* Ensure consistent spacing between cells */
+}
+
+.table-header {
+  @apply bg-gray-100 text-gray-700 font-medium text-sm uppercase tracking-wider;
+  padding: 0.75rem; /* Adjust padding to match image */
+}
+
+.table-cell {
+  @apply p-2 border-b border-gray-200 text-gray-900 text-sm;
+  border-right: 1px solid #f3f4f6; /* Add border to right side of cell */
+}
+
+.member-card {
+  @apply flex items-center space-x-4 mb-4;
+}
+
+.member-photo {
+  @apply w-12 h-12 rounded-full object-cover; /* Ensure images are fully contained */
+}
+
+.member-info {
+  @apply flex-grow flex flex-col;
+}
+
+.member-name {
+  @apply font-bold text-lg;
+}
+
+.member-status {
+  @apply text-green-500 font-semibold;
+}
+
+.member-actions {
+  @apply flex space-x-2;
+}
+
+.member-action-button {
+  @apply text-sm rounded-md px-2 py-1 cursor-pointer;
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin: 0 4px;
+  transition: opacity 0.2s ease-in-out; /* Add transition for smooth hover effects */
+}
+
+.icon-edit {
+  color: #4A90E2; /* Edit icon color */
+}
+
+.icon-delete {
+  color: #E94F4F; /* Delete icon color */
+}
+
+.icon-edit:hover,
+.icon-delete:hover {
+  opacity: 0.8;
+}
+
+/* Additional styles */
+.header-actions {
+  @apply flex items-center;
+}
+
+.search-container {
+  @apply flex items-center;
+}
+
+.icon-edit,
+.icon-delete,
+.icon-filter {
+  @apply w-6 h-6 inline-block align-middle;
+}
+
+.search-bar {
+  @apply p-2 border border-gray-300 rounded-l-md;
+}
+
+.filter-button {
+  @apply bg-transparent border-none cursor-pointer p-0 mx-1 transition-colors duration-200 ease-in-out;
+}
+
+.filter-button:hover .icon-filter {
+  color: #4A90E2; /* Hover color for filter icon */
+}
+
+.add-person-button {
+  @apply bg-blue-500 text-white py-2 px-4 rounded-md shadow-md hover:bg-blue-600 transition-all duration-150;
+}
+
+/* Pagination styles */
+.pagination-container {
+  @apply flex justify-center mt-4;
+}
+
+.pagination-button {
+  @apply p-2 border border-gray-300 rounded-md mr-2 cursor-pointer transition-colors duration-150;
+  @apply hover:bg-gray-200;
+}
+
+/* Personal Details Modal */
+.personal-details-modal {
+  position: fixed;
+  inset: 0;
+  /* background-color: rgba(0, 0, 128, 0.5);  */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 50;
+  padding-left: 70%;
+}
+
+.personal-details-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 15px;
+  max-width: 400px;
+}
+
+.personal-details-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px; 
+  background-color: rgba(0, 0, 128, 0.5);
+   border-radius: 10px;
+}
+
+.member-photo-large {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin-right: 20px;
+}
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.personal-details-body {
+  font-size: 14px;
+}
+
+.personal-details-list {
+  list-style: none;
+  padding: 0;
+}
+
+.personal-details-list li {
+  margin-bottom: 5px;
+}
+
+
+/* editing */
+
+.edit-modal {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 100; /* Ensure it appears above other content */
+}
+
+.edit-modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 500px;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.edit-modal-field {
+  margin-bottom: 15px;
+}
+
+.edit-modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
