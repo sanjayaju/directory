@@ -10,8 +10,9 @@ import {
 import { PencilSquareIcon, TrashIcon, FunnelIcon } from '@heroicons/react/24/outline';
 import PersonalDetails from './PersonalDetails'; // Import the PersonalDetails component
 import EditModal from './EditModal'; // Import the EditModal component
+import Filter from './Filter'; // Import the Filter component
 import '../styles.css';
-import img from '../assets/images/mypic.jpg'
+import img from '../assets/images/mypic.jpg';
 
 const placeholderImage = 'https://example.com/placeholder.jpg';
 
@@ -25,6 +26,7 @@ function PeopleDirectory() {
   const [data, setData] = useState(defaultData);
   const [selectedMember, setSelectedMember] = useState(null);
   const [isEditing, setIsEditing] = useState(false); // State to control EditModal visibility
+  const [filterVisible, setFilterVisible] = useState(false); // State to control Filter visibility
 
   const handleDelete = useCallback((id) => {
     setData((prevData) => prevData.filter((item) => item.id !== id));
@@ -121,6 +123,10 @@ function PeopleDirectory() {
     // Navigate to the add person page
   };
 
+  const toggleFilterVisibility = () => {
+    setFilterVisible((prev) => !prev);
+  };
+
   return (
     <div className="people-directory">
       <div className="header">
@@ -135,7 +141,7 @@ function PeopleDirectory() {
               className="search-bar search-input"
               onChange={(e) => table.setGlobalFilter(e.target.value)}
             />
-            <button className="filter-button">
+            <button className="filter-button" onClick={toggleFilterVisibility}>
               <FunnelIcon className="icon-filter" />
             </button>
           </div>
@@ -144,6 +150,7 @@ function PeopleDirectory() {
           </button>
         </div>
       </div>
+      {filterVisible && <Filter />} {/* Conditionally render Filter component */}
       <table className="table">
         <thead>
           <tr>
